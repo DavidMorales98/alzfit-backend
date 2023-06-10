@@ -6,6 +6,7 @@ const routesInfo = require("./routes/info")
 const routesTest = require("./routes/test")
 const routesSign = require("./routes/sign")
 const {connection} = require("./database/mongodb")
+
 connection();
 app.use(cors());
 app.use(express.json());
