@@ -1,8 +1,45 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
+const jwt = require("../utils/jwt")
 
 const signIn = async (req, res) => {
-  res.status(200).send("Iniciar sesión");
+  try {
+    const params = req.body;
+    if (!params.email || !params.password) {
+      return res.status(400).send({
+        status: "error",
+        message: "Faltan parámetros",
+      });
+    }
+    const existingUser = await User.findOne({
+      email: params.email.toLowerCase(),
+    });
+    if (existingUser) {
+      let isPwd = bcrypt.compareSync(params.password, existingUser.password);
+      if (!isPwd) {
+        return res.status(400).send({
+          status: "error",
+          message: "Contraseña incorrecta",
+        });
+      }
+      const token = jwt.createToken(existingUser)
+      return res.status(200).send({
+        status: "success",
+        message: "Usuario existente",
+        user: {
+          name: existingUser.name,
+          email: existingUser.email,
+          licence: existingUser.licence
+        },
+        token
+      });
+    }
+  } catch (error) {
+    return res.status(500).send({
+      status: "error",
+      message: "Ocurrió un error en el servidor",
+    });
+  }
 };
 const signUp = async (req, res) => {
   try {
@@ -14,7 +51,9 @@ const signUp = async (req, res) => {
       });
     }
 
-    const existingUser = await User.findOne({ email: params.email.toLowerCase() });
+    const existingUser = await User.findOne({
+      email: params.email.toLowerCase(),
+    });
     if (existingUser) {
       return res.status(400).send({
         status: "error",
@@ -47,7 +86,6 @@ const signUp = async (req, res) => {
     });
   }
 };
-
 
 module.exports = {
   signIn,
