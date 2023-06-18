@@ -1,11 +1,11 @@
 const { Configuration, OpenAIApi } = require("openai");
 
 const configuration = new Configuration({
-  apiKey: "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",
+  apiKey: "",
 });
 const openai = new OpenAIApi(configuration);
 
-const getResult = async (category, respuestas) => { // No es necesario pasar req y res si no se está utilizando en este ejemplo
+const speechTest = async (category, respuestas) => { // No es necesario pasar req y res si no se está utilizando en este ejemplo
   try {
     msgSystem = `Eres un asistente que permite categorizar todas las palabras que te entregan,\
    es por eso que debes responder en formato json de la siguiente manera: \
@@ -32,5 +32,5 @@ const getResult = async (category, respuestas) => { // No es necesario pasar req
 
 
 module.exports = {
-    getResult
+    speechTest
 };

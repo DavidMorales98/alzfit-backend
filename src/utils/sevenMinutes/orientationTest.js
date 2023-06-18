@@ -1,4 +1,4 @@
-const orientationTest = (json) => {
+const orientationTest = async (json) => {
   // Obtener la fecha y hora actual
   const fechaActual = new Date();
 
@@ -10,14 +10,12 @@ const orientationTest = (json) => {
   // Comparar el año
   if (!(año === fechaActual.getFullYear())) {
     const añosDiferentesAnt = año - fechaActual.getFullYear();
-    console.log(añosDiferentesAnt);
     puntuacion -= 10 * Math.abs(añosDiferentesAnt);
   }
 
   // Comparar el mes
   if (!(mes === fechaActual.getMonth() + 1)) {
     const mesesDiferentes = Math.abs(mes - (fechaActual.getMonth() + 1));
-    console.log(mesesDiferentes);
     puntuacion -= 5 * mesesDiferentes;
   }
 
@@ -52,7 +50,6 @@ const orientationTest = (json) => {
   const minutosTotalesDiferencia = Math.abs(
     diferenciaHoras * 60 + diferenciaMinutos
   );
-  console.log(minutosTotalesDiferencia);
 
   if (!(minutosTotalesDiferencia === 0)) {
     const penalizacionMinutos = Math.floor(minutosTotalesDiferencia / 30);
@@ -93,15 +90,6 @@ function calcularDiferenciaDiasSemana(diaSemana1, diaSemana2) {
   const diferencia = (indice1 - indice2 + 7) % 7;
   return diferencia === 0 ? 0 : 1;
 }
-// Ejemplo de uso
-const entradaJSON = {
-  mes: 6,
-  dia: 11,
-  año: 2023,
-  diaSemana: "domingo",
-  hora: "00:50",
-};
-
 
 module.exports = {
   orientationTest
