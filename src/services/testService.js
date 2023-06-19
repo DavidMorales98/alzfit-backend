@@ -44,8 +44,7 @@ const sevenMinutes = async (params) => {
   const response = await speechTest(category, stringAnswer);
   const response3 = response.total;
   const resultTotal = response1 + response2 + response3;
-  console.log(resultTotal)
-  return resultTotal
+  return {resultTotal}
 };
 
 module.exports = {

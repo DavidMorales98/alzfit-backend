@@ -7,8 +7,13 @@ const getTest = (req, res) => {
   res.status(200).send("Información de test");
 };
 const evaluateTest = async (req, res) => {
+  try {
     const response = await testService.sevenMinutes(req.body);
-    return res.status(200).send(response)
+    return res.send(response)
+  } catch (error) {
+    // Manejar cualquier error ocurrido durante la consulta a la base de datos
+    return res.status(500).send({message:"Error en el servidor"})
+  }
 };
 
 module.exports = {
