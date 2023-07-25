@@ -1,5 +1,5 @@
 const memoryTest = async (params) => {
-  const puntaje = 4;
+  var puntaje = 4;
   const RESPUESTA_1 = "destornillador";
   const RESPUESTA_2 = "zapato";
   const RESPUESTA_3 = "guitarra";
